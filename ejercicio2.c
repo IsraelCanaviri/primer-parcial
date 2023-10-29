@@ -1,35 +1,42 @@
 #include <stdio.h>
 #include <string.h>
 #include <omp.h>
-// Univ. Canaviri Valdes luis Israel
-//C.I. 7094535
+
+//Univ: Luis Irael Canaviri Valdes
+// C.I. 7094535
 int main() {
     char frase[] = "tres tristes tigres trigaban trigo por culpa del bolivar";
+    char palabras[50][20];  // Suponemos un máximo de 50 palabras de 20 caracteres
 
     // Dividir la frase en palabras
-    char *palabras[50];  
     int i = 0;
-    palabras[i] = strtok(frase, " ");
-    while (palabras[i] != NULL) {
+    char *token = strtok(frase, " ");
+    while (token != NULL) {
+        strcpy(palabras[i], token);
+        token = strtok(NULL, " ");
         i++;
-        palabras[i] = strtok(NULL, " ");
     }
     int totalPalabras = i;
 
-    // División de las palabras en dos secciones
-    int mitad = totalPalabras / 2;
-
-    #pragma omp parallel for
-    for (int j = 0; j < totalPalabras; j++) {
-        if (j < mitad) {
-            // Procesar la primera sección
-            printf("%s ", palabras[j]);
-        } else {
-            // Procesar la segunda sección
-            if (j == mitad) {
-                printf("\n");
+    // División de las palabras en dos secciones (pares e impares)
+    #pragma omp parallel sections
+    {
+        #pragma omp section
+        {
+            printf("Primera seccion: ");
+            for (int j = 0; j < totalPalabras; j += 2) {
+                printf("%s ", palabras[j]);
             }
-            printf("%s ", palabras[j]);
+            printf("\n");
+        }
+
+        #pragma omp section
+        {
+            printf("Segunda seccion: ");
+            for (int j = 1; j < totalPalabras; j += 2) {
+                printf("%s ", palabras[j]);
+            }
+            printf("\n");
         }
     }
 
