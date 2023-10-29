@@ -18,7 +18,7 @@ int main() {
     }
     int totalPalabras = i;
 
-    // División de las palabras en dos secciones (pares e impares)
+    // División de las palabras en dos secciones 
     #pragma omp parallel sections
     {
         #pragma omp section
