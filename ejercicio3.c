@@ -23,9 +23,9 @@ def main():
 
     # Se divide el trabajo entre los hilos MPI
     if rank == 0:
-        print("Palabras en posiciones pares:", seccion_p)
+        print("Palabras primera parte:", seccion_p)
     elif rank == 1:
-        print("Palabras en posiciones impares:", seccion_i)
+        print("Palabras segunda parte:", seccion_i)
 
 if __name__ == "__main__":
     main()
