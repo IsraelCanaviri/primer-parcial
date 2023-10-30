@@ -11,21 +11,21 @@ def main():
 
     total_palabras = len(palabras)
     
-    # Se dividen las palabras en dos secciones (pares e impares)
-    seccion_pares = []
-    seccion_impares = []
+    # Se dividen las palabras en dos secciones 
+    seccion_p= []
+    seccion_i = []
     
     for i in range(total_palabras):
         if i % 2 == 0:
-            seccion_pares.append(palabras[i])
+            seccion_p.append(palabras[i])
         else:
-            seccion_impares.append(palabras[i])
+            seccion_i.append(palabras[i])
 
     # Se divide el trabajo entre los hilos MPI
     if rank == 0:
-        print("Palabras en posiciones pares:", seccion_pares)
+        print("Palabras en posiciones pares:", seccion_p)
     elif rank == 1:
-        print("Palabras en posiciones impares:", seccion_impares)
+        print("Palabras en posiciones impares:", seccion_i)
 
 if __name__ == "__main__":
     main()
